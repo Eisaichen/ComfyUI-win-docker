@@ -1,5 +1,5 @@
-$i = (curl https://api.github.com/repos/comfyanonymous/ComfyUI/releases/latest).content | ConvertFrom-Json
-$url = ($i | Where-Object {$_.tag_name -eq "$env:GH_CI_TAG"}).assets.browser_download_url
+$i = $(curl https://api.github.com/repos/comfyanonymous/ComfyUI/releases).content | ConvertFrom-Json
+$url = $($i | Where-Object {$_.tag_name -eq "$env:GH_CI_TAG"}).assets.browser_download_url
 [string]$7z="$PWD"+'\build'
 
 
