@@ -4,7 +4,7 @@ $url = ($i | Where-Object {$_.tag_name -eq "$env:GH_CI_TAG"}).assets.browser_dow
 
 
 docker pull mcr.microsoft.com/windows/server:ltsc2022
-.\wget -q --no-hsts $i.assets.browser_download_url -O .\ComfyUI_windows_portable_nvidia.7z
+.\wget -q --no-hsts $url -O .\ComfyUI_windows_portable_nvidia.7z
 Invoke-Expression ".\7z\7za.exe x .\ComfyUI_windows_portable_nvidia.7z -o$7z"
 Rename-Item -Path .\build\ComfyUI_windows_portable\ComfyUI\models -NewName _models
 mkdir .\build\ComfyUI_windows_portable\ComfyUI\models
