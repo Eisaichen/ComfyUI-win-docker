@@ -1,0 +1,11 @@
+services:
+  ComfyUI:
+    container_name: ComfyUI
+    image: eisai/comfy-ui
+    isolation: process
+    ports: 
+      - 8188:8188
+    volumes:
+      - '.\models:C:\app\ComfyUI\models'
+    devices:
+      - class/5B45201D-F2F2-4F3B-85BB-30FF1F953599     # Passing GPU, Dont Change. Delete this block if you dont want to use GPU
