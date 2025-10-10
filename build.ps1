@@ -27,7 +27,7 @@ if ($env:GH_CI_PUSH -eq "true") {
     docker push eisai/comfy-ui -a
 }
 # delete built image to prevent runner out of space
-docker rmi $(docker image ls -q -f "reference=eisai/comfy-ui:*")
+docker rmi eisai/comfy-ui:$env:GH_CI_TAG -f
 docker rmi $(docker image ls -q -f "reference=mcr.microsoft.com/windows/server:*")
 Remove-Item -Path ".\ComfyUI_windows_portable_nvidia.7z"
 
