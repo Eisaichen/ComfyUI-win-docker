@@ -28,6 +28,7 @@ if ($env:GH_CI_PUSH -eq "true") {
 }
 # delete built image to prevent runner out of space
 docker rmi $(docker image ls -q -f "reference=eisai/comfy-ui:*")
+docker rmi $(docker image ls -q -f "reference=mcr.microsoft.com/windows/server:*")
 
 
 # Build ltsc2025
