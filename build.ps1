@@ -27,7 +27,7 @@ if ($env:GH_CI_PUSH -eq "true") {
     docker push eisai/comfy-ui -a
 }
 # delete built image to prevent runner out of space
-docker rmi (docker image ls -aq)
+docker rmi $(docker image ls -q -f "reference=eisai/comfy-ui:*")
 
 
 # Build ltsc2025
