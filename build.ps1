@@ -23,6 +23,11 @@ if ($env:GH_CI_LATEST -eq "true") {
 } else {
     docker build --isolation hyperv --pull --no-cache -t eisai/comfy-ui:$env:GH_CI_TAG .\build
 }
+if ($env:GH_CI_PUSH -eq "true") {
+    docker push eisai/comfy-ui -a
+}
+# delete built image to prevent runner out of space
+docker rmi (docker image ls -aq)
 
 
 # Build ltsc2025
@@ -35,10 +40,7 @@ if ($env:GH_CI_LATEST -eq "true") {
 } else {
     docker build --isolation hyperv --no-cache --pull -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2025 .\build
 }
-
-
-# Push
-
 if ($env:GH_CI_PUSH -eq "true") {
     docker push eisai/comfy-ui -a
 }
+docker rmi (docker image ls -aq)
