@@ -43,4 +43,3 @@ if ($env:GH_CI_LATEST -eq "true") {
 if ($env:GH_CI_PUSH -eq "true") {
     docker push eisai/comfy-ui -a
 }
-docker rmi (docker image ls -aq)
