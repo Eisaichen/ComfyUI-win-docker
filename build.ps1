@@ -1,6 +1,6 @@
 # Download ComfyUI
 
-$i = $(Invoke-WebRequest -Uri https://api.github.com/repos/comfyanonymous/ComfyUI/releases).content | ConvertFrom-Json
+$i = $(Invoke-WebRequest -Uri https://api.github.com/repos/Comfy-Org/ComfyUI/releases).content | ConvertFrom-Json
 $url = (($i | Where-Object {$_.tag_name -eq "$env:GH_CI_TAG"}).assets | Where-Object {$_.name -eq "ComfyUI_windows_portable_nvidia.7z"}).browser_download_url
 [string]$7z="$PWD"+'\build'
 
