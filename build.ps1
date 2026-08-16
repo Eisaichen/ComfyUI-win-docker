@@ -52,5 +52,5 @@ if ($env:GH_CI_LATEST -eq "true") {
 
 # Push
 if ($env:GH_CI_PUSH -eq "true") {
-    docker push eisai/eisai/comfy-ui -a
+    docker push eisai/comfy-ui -a
 }
