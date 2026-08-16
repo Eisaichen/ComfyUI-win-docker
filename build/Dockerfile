@@ -10,6 +10,8 @@ COPY ./ComfyUI_windows_portable c:/app
 RUN powershell Move-Item -Path c:\res\nvdll\System32\* -Destination C:\Windows\System32 -Force ; \
     Move-Item -Path c:\res\nvdll\SysWOW64\* -Destination C:\Windows\SysWOW64 -Force ; \
     Start-Process -wait -FilePath C:\res\vc_redist.x64.exe -ArgumentList '/install /passive /norestart' ; \
+    Import-Certificate -Filepath C:\res\cacert.sst -CertStoreLocation 'Cert:\LocalMachine\Root' ; \
+    C:\app\python_embeded\python.exe -m pip install -r C:\app\ComfyUI\manager_requirements.txt ; \
     Remove-Item -r c:\res
 
 WORKDIR C:/app
