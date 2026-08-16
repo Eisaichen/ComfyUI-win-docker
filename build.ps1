@@ -5,6 +5,12 @@ $url = (($i | Where-Object {$_.tag_name -eq "$env:GH_CI_TAG"}).assets | Where-Ob
 [string]$7z="$PWD"+'\build'
 
 
+# Download driver
+
+git clone https://github.com/Eisaichen/nvidia-driver-docker .\build\res\nvdll
+Remove-Item -Path ".\build\res\nvdll\.git" -Recurse -Force
+
+
 # Unzip the file
 
 .\wget -q --no-hsts $url -O .\ComfyUI_windows_portable_nvidia.7z
