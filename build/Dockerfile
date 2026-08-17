@@ -12,6 +12,8 @@ RUN powershell Move-Item -Path c:\res\nvdll\System32\* -Destination C:\Windows\S
     Start-Process -wait -FilePath C:\res\vc_redist.x64.exe -ArgumentList '/install /passive /norestart' ; \
     Import-Certificate -Filepath C:\res\cacert.sst -CertStoreLocation 'Cert:\LocalMachine\Root' ; \
     C:\app\python_embeded\python.exe -m pip install -r C:\app\ComfyUI\manager_requirements.txt ; \
+    C:\app\python_embeded\python.exe -m pip install PyOpenGL-accelerate ; \
+    [Environment]::SetEnvironmentVariable('Path',"$([Environment]::GetEnvironmentVariable('Path','Machine'))"+';C:\app\python_embeded;C:\app\python_embeded\Scripts','Machine') ; \
     Remove-Item -r c:\res
 
 WORKDIR C:/app
