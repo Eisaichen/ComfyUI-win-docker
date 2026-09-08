@@ -24,16 +24,13 @@ $i = Get-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt
 Set-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt $i[14..20]
 
 
-# Build ltsc2025
-
-$i = Get-Content -Path .\build\Dockerfile
-Set-Content -Path .\build\Dockerfile -Value $($i.replace("FROM mcr.microsoft.com/windows/server:ltsc2022", "FROM mcr.microsoft.com/windows/server:ltsc2025"))
+# Build ltsc2022
 
 if ($env:GH_CI_LATEST -eq "true") {
-    docker build --isolation hyperv --no-cache --pull --compress -t eisai/comfy-ui:ltsc2025 -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2025 .\build
+    docker build --isolation hyperv --no-cache --pull -t eisai/comfy-ui:ltsc2022 -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2022 .\build
 }
 else {
-    docker build --isolation hyperv --no-cache --pull --compress -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2025 .\build
+    docker build --isolation hyperv --pull --no-cache -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2022 .\build
 }
 
 # Push

@@ -1,4 +1,4 @@
-name: Docker Image LTSC2025 CI
+name: Docker Image LTSC2022 CI
 
 on:
   workflow_dispatch:
@@ -35,4 +35,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Run a multi-line script
-        run: .\build-ltsc2025.ps1
+        run: .\build-ltsc2022.ps1
