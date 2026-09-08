@@ -1,3 +1,6 @@
+# fix github runner https://github.com/actions/runner-images/issues/13729
+Start-Service docker
+
 # Download ComfyUI
 
 $i = $(Invoke-WebRequest -Uri https://api.github.com/repos/Comfy-Org/ComfyUI/releases).content | ConvertFrom-Json
