@@ -16,6 +16,7 @@ Remove-Item -Path ".\build\res\nvdll\.git" -Recurse -Force
 .\wget -q --no-hsts $url -O .\ComfyUI_windows_portable_nvidia.7z
 Invoke-Expression ".\7z\7za.exe x .\ComfyUI_windows_portable_nvidia.7z -o$7z"
 Copy-Item .\entry.bat .\build\ComfyUI_windows_portable
+Copy-Item .\install_requirement.ps1 .\build\ComfyUI_windows_portable
 $i = Get-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt
 Set-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt $i[14..20]
 
@@ -27,27 +28,6 @@ if ($env:GH_CI_LATEST -eq "true") {
 }
 else {
     docker build --isolation hyperv --pull --no-cache --compress -t eisai/comfy-ui:$env:GH_CI_TAG .\build
-}
-
-# Push
-if ($env:GH_CI_PUSH -eq "true") {
-    docker push eisai/comfy-ui -a
-}
-
-# Clean up
-docker system prune --all -f
-
-
-# Build ltsc2025
-
-$i = Get-Content -Path .\build\Dockerfile
-Set-Content -Path .\build\Dockerfile -Value $($i.replace("FROM mcr.microsoft.com/windows/server:ltsc2022", "FROM mcr.microsoft.com/windows/server:ltsc2025"))
-
-if ($env:GH_CI_LATEST -eq "true") {
-    docker build --isolation hyperv --no-cache --pull --compress -t eisai/comfy-ui:ltsc2025 -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2025 .\build
-}
-else {
-    docker build --isolation hyperv --no-cache --pull --compress -t eisai/comfy-ui:$env:GH_CI_TAG-ltsc2025 .\build
 }
 
 # Push

@@ -2,7 +2,7 @@
 
 EXPOSE 8188
 
-ENV ARGS=
+ENV ARGS= COMFY_INSTALL_NODE=true
 
 COPY ./res c:/res
 COPY ./ComfyUI_windows_portable c:/app
