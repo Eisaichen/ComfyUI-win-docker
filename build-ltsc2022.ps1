@@ -1,11 +1,5 @@
 # fix github runner https://github.com/actions/runner-images/issues/13729
-Start-Service docker
-
-# Download ComfyUI
-
-$i = $(Invoke-WebRequest -Uri https://api.github.com/repos/Comfy-Org/ComfyUI/releases).content | ConvertFrom-Json
-$url = (($i | Where-Object { $_.tag_name -eq "$env:GH_CI_TAG" }).assets | Where-Object { $_.name -eq "ComfyUI_windows_portable_nvidia.7z" }).browser_download_url
-[string]$7z = "$PWD" + '\build'
+Start-Service -Name docker -ErrorAction SilentlyContinue
 
 
 # Download driver
@@ -14,14 +8,16 @@ git clone --depth 1 --single-branch https://github.com/Eisaichen/nvidia-driver-d
 Remove-Item -Path ".\build\res\nvdll\.git" -Recurse -Force
 
 
+# Download comfyui
+
+git clone --depth 1 --single-branch https://github.com/comfy-org/comfyui .\build\app
+Remove-Item -Path ".\build\app\.git" -Recurse -Force
+
+
 # Unzip the file
 
-.\wget -q --no-hsts $url -O .\ComfyUI_windows_portable_nvidia.7z
-Invoke-Expression ".\7z\7za.exe x .\ComfyUI_windows_portable_nvidia.7z -o$7z"
-Copy-Item .\entry.bat .\build\ComfyUI_windows_portable
-Copy-Item .\install_requirement.ps1 .\build\ComfyUI_windows_portable
-$i = Get-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt
-Set-Content .\build\ComfyUI_windows_portable\README_VERY_IMPORTANT.txt $i[14..20]
+Copy-Item .\entry.bat .\build\app
+Copy-Item .\install_requirement.ps1 .\build\app
 
 
 # Build ltsc2022
