@@ -10,7 +10,7 @@ Remove-Item -Path ".\build\res\nvdll\.git" -Recurse -Force
 
 # Download comfyui
 
-git clone --depth 1 --single-branch https://github.com/comfy-org/comfyui .\build\app
+git clone --depth 1 --single-branch -b $env:GH_CI_TAG https://github.com/comfy-org/comfyui .\build\app
 Remove-Item -Path ".\build\app\.git" -Recurse -Force
 
 
